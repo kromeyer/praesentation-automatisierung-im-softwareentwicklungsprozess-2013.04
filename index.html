@@ -1,1 +1,399 @@
-test
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Automatisierung im Softwareentwicklungsprozess</title>
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="css/shCore.css" />
+        <link rel="stylesheet" type="text/css" href="css/shThemeDefault.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+    </head>
+    <body>
+        <article>
+            <section>
+                <h1>Automatisierung im Softwareentwicklungsprozess</h1>
+                <h3>Mannheim, 9. April 2013</h3>
+                <footer>
+                    <p>
+                        <strong>Patrick Kromeyer</strong>
+                    </p>
+                    <p>
+                        CAMAO AG: Web- und Softwareentwickler<br>
+                        DHBW: Medienmanagement und Kommunikation
+                    </p>
+                </footer>
+            </section>
+            <section>
+                <h2>Inhalt</h2>
+                <ol>
+                    <li data-bespoke-bullet>kurze Einleitung</li>
+                    <li data-bespoke-bullet>Beispiel A: PHP-Softwareentwicklung</li>
+                    <li data-bespoke-bullet>Beispiel B: PHP-Hosting</li>
+                    <li data-bespoke-bullet>weitere Ressourcen</li>
+                </ol>
+            </section>
+            <section>
+                <h2>Gründe für Automatisierung</h2>
+                <ul>
+                    <li data-bespoke-bullet>Arbeitserleichterung und Zeitersparnis</li>
+                    <li data-bespoke-bullet>schnellere Abarbeitung der Arbeitsschritte</li>
+                    <li data-bespoke-bullet>Reduzierung von Fehler</li>
+                    <li data-bespoke-bullet>Dokumentation</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Szenarien</h2>
+                <ul>
+                    <li data-bespoke-bullet>Setup der Entwicklungsumgebung</li>
+                    <li data-bespoke-bullet>Generierung von Bestandteilen der Software</li>
+                    <li data-bespoke-bullet>Ausführung von Softwaretests</li>
+                    <li data-bespoke-bullet>Generierung von Dokumentation</li>
+                    <li data-bespoke-bullet>Softwareverteilung: Deployment</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Beispiel A: PHP-Softwareentwicklung</h2>
+                <h3>PHP</h3>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    $ apt-get install php5
+                    $ php --version
+                </script>
+                <h3>PHPUnit via PEAR und Xdebug</h3>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    $ apt-get install php-pear
+                    $ pear channel-update pear.php.net
+                    $ pear upgrade pear
+                    $ pear config-set auto_discover 1
+                    $ pear install pear.phpunit.de/PHPUnit
+                    $ phpunit --version
+
+                    $ apt-get install php5-xdebug
+                </script>
+            </section>
+            <section>
+                <h2>Beispiel A: PHP-Softwareentwicklung</h2>
+                <h3>Workspace</h3>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    $ mkdir demo.git
+                    $ mkdir demo.git/src
+                    $ mkdir demo.git/test
+                    $ vim demo.git/src/Math.php`
+                </script>
+                <script type="syntaxhighlighter" class="brush: php">
+                    <?php
+
+                    class Math
+                    {
+                        public function add($value1, $value2)
+                        {
+                            return $value1 + $value2;
+                        }
+
+                        public function sub($value1, $value2)
+                        {
+                            return $value1 - $value2;
+                        }
+                    }
+                </script>
+            </section>
+            <section>
+                <h2>Beispiel A: PHP-Softwareentwicklung</h2>
+                <h3>PHPUnit-Test</h3>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    $ vim demo.git/test/MathTest.php
+                </script>
+                <script type="syntaxhighlighter" class="brush: php">
+                    <?php
+
+                    require_once('src/Math.php');
+
+                    class MathTest extends PHPUnit_Framework_TestCase
+                    {
+                        public function testAdd()
+                        {
+                            $math = new Math();
+                            $this->assertEquals($math->add(1, 2), 3);
+                        }
+                    }
+                </script>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    $ phpunit test/MathTest.php
+
+                    PHPUnit 3.7.19 by Sebastian Bergmann.
+                    .
+                    Time: 0 seconds, Memory: 4.50Mb
+                    OK (1 test, 1 assertion)
+                </script>
+            </section>
+            <section>
+                <h2>Beispiel A: PHP-Softwareentwicklung</h2>
+                <h3>Git</h3>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    $ apt-get install git
+                    $ git --version
+
+                    $ git config --global user.name "Patrick Kromeyer"
+                    $ git config --global user.email patrick.kromeyer@gmail.com
+
+                    $ git init .
+                    $ git add .
+                    $ git commit -m 'init'
+
+                    [master (root-commit) 309ce40] init
+                    2 files changed, 28 insertions(+), 0 deletions(-)
+                    create mode 100644 src/Math.php
+                    create mode 100644 test/MathTest.php
+                </script>
+            </section>
+            <section>
+                <h2>Beispiel A: PHP-Softwareentwicklung</h2>
+                <h3>Apache Ant</h3>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    $ apt-get install ant
+                    $ vim build.xml
+                </script>
+                <script type="syntaxhighlighter" class="brush: xml">
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <project name="demo" default="build" basedir=".">
+                        <target
+                            name="clean"
+                            description="Clean up and create artifact directories"
+                        >
+                            <delete dir="${basedir}/build"/>
+                            <mkdir dir="${basedir}/build"/>
+                            <mkdir dir="${basedir}/build/coverage"/>
+                            <mkdir dir="${basedir}/build/logs"/>
+                        </target>
+                        <target
+                            name="phpunit"
+                            description="Run unit tests using PHPUnit and generates junit.xml and clover.xml"
+                        >
+                            <exec dir="${basedir}" executable="phpunit" failonerror="true">
+                                <arg line="--log-junit ${basedir}/build/logs/junit.xml \
+                                           --coverage-html ${basedir}/build/coverage \
+                                           --coverage-clover ${basedir}/build/logs/clover.xml \
+                                           ${basedir}/test/MathTest.php"/>
+                            </exec>
+                        </target>
+                        <target
+                            name="build"
+                            depends="clean,phpunit"/>
+                    </project>
+                </script>
+            </section>
+            <section>
+                <h2>Beispiel A: PHP-Softwareentwicklung</h2>
+                <h3>Apache Ant</h3>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    $ ant
+
+                    Unable to locate tools.jar. Expected to find it in /usr/lib/jvm/java-6-openjdk/lib/tools.jar
+                    Buildfile: /home/patrick/demo.git/build.xml
+
+                    clean:
+                       [delete] Deleting directory /home/patrick/demo.git/build
+                        [mkdir] Created dir: /home/patrick/demo.git/build
+                        [mkdir] Created dir: /home/patrick/demo.git/build/coverage
+                        [mkdir] Created dir: /home/patrick/demo.git/build/logs
+
+                    phpunit:
+                         [exec] PHPUnit 3.7.19 by Sebastian Bergmann.
+                         [exec]
+                         [exec] .
+                         [exec]
+                         [exec] Time: 0 seconds, Memory: 8.25Mb
+                         [exec]
+                         [exec] OK (1 test, 1 assertion)
+                         [exec]
+                         [exec] Generating code coverage report in Clover XML format ... done
+                         [exec]
+                         [exec] Generating code coverage report in HTML format ... done
+
+                    build:
+                </script>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    $ echo "build" > .gitignore
+                    $ git add .
+                    $ git commit -m 'build.xml added'
+                </script>
+            </section>
+            <section>
+                <h2>Beispiel A: PHP-Softwareentwicklung</h2>
+                <h3>Jenkins</h3>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    $ wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | sudo apt-key add -
+                    $ echo "deb http://pkg.jenkins-ci.org/debian binary/" >> /etc/apt/sources.list
+                    $ apt-get update
+                    $ apt-get install jenkins
+
+                    $ vim /etc/default/jerkins
+                    $ ls -ail /var/lib/jenkins
+                </script>
+            </section>
+            <section>
+                <img src="img/jenkins_1.png"/>
+            </section>
+            <section>
+                <img src="img/jenkins_2.png"/>
+            </section>
+            <section>
+                <img src="img/jenkins_3.png"/>
+            </section>
+            <section>
+                <img src="img/jenkins_4.png"/>
+            </section>
+            <section>
+                <img src="img/jenkins_5.png"/>
+            </section>
+            <section>
+                <h2>Beispiel A: PHP-Softwareentwicklung</h2>
+                <h3>Git-Plugin</h3>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    $ su jenkins
+                    $ git config --global user.name "Jenkins CI"
+                    $ git config --global user.email jenkins@example.com
+                    $ exit
+                </script>
+            </section>
+            <section>
+                <img src="img/job_1.png"/>
+            </section>
+            <section>
+                <img src="img/job_2.png"/>
+            </section>
+            <section>
+                <img src="img/job_3.png"/>
+            </section>
+            <section>
+                <img src="img/job_4.png"/>
+            </section>
+            <section>
+                <img src="img/job_5.png"/>
+            </section>
+            <section>
+                <img src="img/job_6.png"/>
+            </section>
+            <section>
+                <img src="img/job_7.png"/>
+            </section>
+            <section>
+                <img src="img/plugins_1.png"/>
+            </section>
+            <section>
+                <img src="img/plugins_2.png"/>
+            </section>
+            <section>
+                <img src="img/job_8.png"/>
+            </section>
+            <section>
+                <img src="img/job_9.png"/>
+            </section>
+            <section>
+                <img src="img/job_10.png"/>
+            </section>
+            <section>
+                <img src="img/job_11.png"/>
+            </section>
+            <section>
+                <h2>Beispiel A: PHP-Softwareentwicklung</h2>
+                <h3>Trigger</h3>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    $ cp .git/hooks/post-commit.sample .git/hooks/post-commit
+                    $ vim .git/hooks/post-commit
+                </script>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    curl http://localhost:8080/git/notifyCommit?url=/home/patrick/demo.git
+                </script>
+            </section>
+            <section>
+                <img src="img/job_12.png"/>
+            </section>
+            <section>
+                <img src="img/selfoss.png"/>
+            </section>
+            <section>
+                <h2>Beispiel B: PHP-Hosting</h2>
+                <h3>selfoss</h3>
+                <script type="syntaxhighlighter" class="brush: plain">
+                    git clone https://github.com/SSilence/selfoss.git /var/www/selfoss.git
+                </script>
+                <script type="syntaxhighlighter" class="brush: xml">
+                    <?xml version="1.0"?>
+                    <project name="selfoss.git" default="permissions" basedir=".">
+                        <target name="permissions">
+                            <chmod perm="a+w">
+                                <dirset dir="${basedir}">
+                                    <include name="data/cache"/>
+                                    <include name="data/favicons"/>
+                                    <include name="data/logs"/>
+                                    <include name="data/thumbnails"/>
+                                    <include name="data/sqlite"/>
+                                    <include name="public"/>
+                                </dirset>
+                            </chmod>
+                        </target>
+                        <target name="update">
+                            <exec executable="git">
+                                <arg value="pull"/>
+                            </exec>
+                        </target>
+                        <target name="backup">
+                            <tar basedir="${basedir}" compression="gzip" destfile="/backup/selfoss.git.tar.gz"/>
+                        </target>
+                    </project>
+                </script>
+            </section>
+            <section>
+                <h2>weitere Ressourcen</h2>
+                <ul>
+                    <li data-bespoke-bullet>
+                        <a href="http://ant.apache.org">Apache Ant: Documentation</a>
+                    </li>
+                    <li data-bespoke-bullet>
+                        <a href="http://maven.apache.org">Apache Maven: Documentation</a>
+                    </li>
+                    <li data-bespoke-bullet>
+                        <a href="http://gruntjs.com">Grunt: The JavaScript Task Runner</a>
+                    </li>
+                    <li data-bespoke-bullet>
+                        <a href="http://jenkins-ci.org">Jenkins: An extendable open source continuous integration server</a>
+                    </li>
+                    <li data-bespoke-bullet>
+                        <a href="http://jenkins-php.org">Template for Jenkins Jobs for PHP Projects</a>
+                    </li>
+                    <li data-bespoke-bullet>
+                        <a href="http://selfoss.aditu.de">selfoss: The new multipurpose rss reader, live stream, mashup, aggregation web application</a>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>That's it</h2>
+            </section>
+        </article>
+        <div class="bespoke-progress"></div>
+
+        <script src="js/bespoke.min.js"></script>
+        <script src="js/bespoke-bullets.min.js"></script>
+
+        <script type="text/javascript" src="js/XRegExp.js"></script>
+        <script type="text/javascript" src="js/shCore.js"></script>
+        <script type="text/javascript" src="js/shBrushPhp.js"></script>
+        <script type="text/javascript" src="js/shBrushPlain.js"></script>
+        <script type="text/javascript" src="js/shBrushXml.js"></script>
+
+        <script type="text/javascript">
+            bespoke.plugins.progress = function(deck) {
+                var progress = document.querySelector('.bespoke-progress');
+                deck.on('activate', function(event) {
+                    var width = event.index / (deck.slides.length - 1) * (window.innerWidth - 20);
+                    progress.style.width = width + 'px';
+                });
+            };
+            bespoke.horizontal.from('article', {progress: true, bullets: true});
+
+            SyntaxHighlighter.defaults['toolbar'] = false;
+            SyntaxHighlighter.all();
+        </script>
+    </body>
+</html>

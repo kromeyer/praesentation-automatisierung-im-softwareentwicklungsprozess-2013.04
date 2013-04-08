@@ -1,0 +1,178 @@
+/**
+ * Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+ * http://cssreset.com
+ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/******************************************************************************/
+* {
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}
+body {
+    background: rgb(255, 255, 255);
+    color: rgb(135, 135, 135);
+    font: 24px/1.4 'Open Sans', Arial, sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    text-align: center;
+}
+p, ul, li {
+    margin: 0.5em 0;
+    text-align: left;
+}
+strong {
+    color: rgb(167, 0, 229);
+    font-weight: inherit;
+}
+h1, h2 {
+    color: rgb(167, 0, 229);
+    font-weight: 300;
+    font-size: 3rem;
+    line-height: 1;
+    margin: 1em 0;
+}
+h2 {
+    font-size: 2.6rem;
+}
+h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+a {
+    border-bottom: 0.1rem dotted rgb(135, 135, 135);
+    color: rgb(135, 135, 135);
+    text-decoration: none;
+}
+a:hover {
+    border-bottom: 0.1rem dotted rgb(167, 0, 229);
+    color: rgb(167, 0, 229);
+    text-decoration: none;
+}
+ul {
+    list-style: circle outside;
+    padding-left: 4rem;
+}
+ol {
+    list-style: decimal outside;
+    padding-left: 4rem;
+}
+footer {
+    bottom: 0;
+    position: absolute;
+	width: 100%;
+}
+
+/******************************************************************************/
+.syntaxhighlighter {
+    font-size: 0.9rem !important;
+    margin-bottom: 2rem !important;
+    margin-top: 2rem !important;
+}
+.syntaxhighlighter .gutter {
+    color: rgb(167, 0, 229) !important;
+}
+.syntaxhighlighter .gutter .line {
+    border-right: 0.1rem solid rgb(167, 0, 229) !important;
+    min-width: 2rem !important;
+}
+.bespoke-progress {
+    background: rgb(167, 0, 229);
+    bottom: 10px;
+    height: 1px;
+    left: 10px;
+    position: absolute;
+}
+.bespoke-bullet-inactive {
+    opacity: 0;
+}
+
+/******************************************************************************/
+article {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+section {
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+    width: 800px;
+	height: 600px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -400px;
+	margin-top: -300px;
+	opacity: 0;
+}
+section.bespoke-slide {
+    -webkit-transition: -webkit-transform .7s ease, opacity .7s ease;
+	-moz-transition: -moz-transform .7s ease, opacity .7s ease;
+	-ms-transition: -ms-transform .7s ease, opacity .7s ease;
+	-o-transition: -o-transform .7s ease, opacity .7s ease;
+	transition: transform .7s ease, opacity .7s ease;
+}
+section.bespoke-active {
+    opacity: 1;
+}
+section.bespoke-before {
+    -webkit-transform: translate3d(-2400px, 0, 0);
+	-moz-transform: translate3d(-2400px, 0, 0);
+	-ms-transform: translate3d(-2400px, 0, 0);
+	-o-transform: translate3d(-2400px, 0, 0);
+	transform: translate3d(-2400px, 0, 0);
+}
+section.bespoke-after {
+	-webkit-transform: translate3d(2400px, 0, 0);
+	-moz-transform: translate3d(2400px, 0, 0);
+	-ms-transform: translate3d(2400px, 0, 0);
+	-o-transform: translate3d(2400px, 0, 0);
+	transform: translate3d(2400px, 0, 0);
+}
